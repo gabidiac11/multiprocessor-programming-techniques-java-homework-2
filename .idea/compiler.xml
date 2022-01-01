@@ -6,6 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="TpmEx3" />
         <module name="TpmEx2" />
         <module name="TpmEx1" />
       </profile>
@@ -13,6 +14,7 @@
     <bytecodeTargetLevel>
       <module name="TpmEx1" target="17" />
       <module name="TpmEx2" target="17" />
+      <module name="TpmEx3" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

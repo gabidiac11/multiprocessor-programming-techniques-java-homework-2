@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TpmEx1/TpmEx1.iml" filepath="$PROJECT_DIR$/TpmEx1/TpmEx1.iml" />
       <module fileurl="file://$PROJECT_DIR$/TpmEx2/TpmEx2.iml" filepath="$PROJECT_DIR$/TpmEx2/TpmEx2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TpmEx3/TpmEx3.iml" filepath="$PROJECT_DIR$/TpmEx3/TpmEx3.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/multiprocessor-programming-techniques-java-homework-2.iml" filepath="$PROJECT_DIR$/.idea/multiprocessor-programming-techniques-java-homework-2.iml" />
     </modules>
   </component>
