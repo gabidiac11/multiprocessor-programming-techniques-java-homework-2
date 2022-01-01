@@ -79,6 +79,7 @@ public class BoundedQueueSpinningMixed<T> implements IBQueue<T> {
 
         try {
             if (head.next == null) {
+                System.out.printf("DEQ: '%s' waits notEmptyCondition... \n", Thread.currentThread().getName());
                 notEmptyCondition.await();
             }
 
@@ -88,6 +89,11 @@ public class BoundedQueueSpinningMixed<T> implements IBQueue<T> {
             while (size.get() == 0) {}; //spinning
 
             if(hasToSpin) System.out.printf("DEQ: '%s' stopped spinning... \n", Thread.currentThread().getName());
+
+            /*
+                if this is not true: (size.get() == 0) -> (head.next == null)
+                an exception will get caught (reading property of null)
+            */
 
             v = head.next.value;
             head = head.next;

@@ -35,7 +35,7 @@ public class BoundedQueueSpinning<T> implements IBQueue<T> {
         outputE = String.format("ENQ: '%s' gets lock \n", Thread.currentThread().getName());System.out.print(outputE);
 
         try {
-            var hasToSpin = size.get() == 0;
+            var hasToSpin = size.get() == capacity;
             if(hasToSpin) System.out.printf("ENQ: '%s' started spinning... \n", Thread.currentThread().getName());
 
             while (size.get() == capacity) {}; //spinning

@@ -1,4 +1,4 @@
-"C:\Program Files\Java\jdk-17.0.1\bin\java.exe" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2021.3\lib\idea_rt.jar=61437:C:\Program Files\JetBrains\IntelliJ IDEA 2021.3\bin" -Dfile.encoding=UTF-8 -classpath "C:\Users\Gabi\IdeaProjects\multiprocessor-programming-techniques-java-homework-2\TpmEx2\${project.build.directory}\classes" RunTest
+"C:\Program Files\Java\jdk-17.0.1\bin\java.exe" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2021.3\lib\idea_rt.jar=61437:C:\Program Files\JetBrains\IntelliJ IDEA 2021.3\bin" -Dfile.encoding=UTF-8 -classpath "C:\Users\Gabi\IdeaProjects\multiprocessor-programming-techniques-java-homework-2\TpmEx2\${project.build.directory}\classes" ThreadsRun
 
 -----------------Started [1 capacity]-----------------
 DEQ: 'Thread-0' wants lock

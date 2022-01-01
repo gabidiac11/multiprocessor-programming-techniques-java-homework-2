@@ -6,12 +6,12 @@ import java.lang.management.ThreadMXBean;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class RunTest {
+public class ThreadsRun {
     public static void main(String[] args) throws InterruptedException {
 //        Run_A();
 //        Run_B();
-        Run_C1();
-//        Run_C2();
+//        Run_C1();
+        Run_C2();
     }
 
     public static void Run_A() throws InterruptedException {
