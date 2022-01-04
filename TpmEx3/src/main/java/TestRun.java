@@ -2,7 +2,6 @@ import list.IOptimisticList;
 import list.OptimisticList;
 import list.OptimisticListOptimized;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
@@ -10,10 +9,16 @@ import java.util.Vector;
 class TestRun {
     final int numOfElements = 100_000;
     static Random r = new Random();
+
+    //the list from which threads add number to optimistic list
     final List<Integer> numsToAdd;
     final List<Integer> numsToVerifyContains;
     final List<Integer> numsToRemove;
 
+    /**
+     * run test for un-optimized and optimized list and print the timing side by side
+     * @throws Exception
+     */
     TestRun() throws Exception {
         this.numsToAdd = generateListOfRandomNumbers();
         this.numsToVerifyContains = generateListOfRandomNumbers();
@@ -158,6 +163,12 @@ class TestRun {
         return (endTime - startTime);
     }
 
+    /**
+     * verifies if all the numbers added that weren't removed are present in the optimistic list
+     * @param list
+     * @return
+     * @throws Exception
+     */
     long finalVerification(IOptimisticList<Integer> list) throws Exception {
         long startTime = System.nanoTime();
 

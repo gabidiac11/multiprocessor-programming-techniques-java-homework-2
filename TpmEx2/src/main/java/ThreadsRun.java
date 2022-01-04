@@ -1,137 +1,84 @@
 import interfaces.IBQueue;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.ThreadInfo;
-import java.lang.management.ThreadMXBean;
-import java.util.Arrays;
-import java.util.Vector;
+import java.util.Random;
 
 public class ThreadsRun {
+    static final Integer[] capacities = new Integer[] {1, 2, 5, 20};
+    static final Integer[] numOfThreads = new Integer[] {30, 100, 1000, 10_000};
+
     public static void main(String[] args) throws InterruptedException {
-//        Run_A();
-//        Run_B();
-//        Run_C1();
-        Run_C2();
-    }
-
-    public static void Run_A() throws InterruptedException {
-        RunTest(1, new a.BoundedQueue<>(1));
-        RunTest(2, new a.BoundedQueue<>(2));
-        RunTest(5, new a.BoundedQueue<>(5));
-        RunTest(101, new a.BoundedQueue<>(100));
-    }
-
-    public static void Run_B() throws InterruptedException {
-        RunTest(1, new b.BoundedQueue<>(1));
-        RunTest(2, new b.BoundedQueue<>(2));
-        RunTest(5, new b.BoundedQueue<>(5));
-        RunTest(101, new b.BoundedQueue<>(100));
-    }
-
-    public static void Run_C1() throws InterruptedException {
-        RunTest(1, new c.BoundedQueueSpinning<>(1));
-        RunTest(2, new c.BoundedQueueSpinning<>(2));
-        RunTest(5, new c.BoundedQueueSpinning<>(5));
-        RunTest(101, new c.BoundedQueueSpinning<>(101));
-    }
-
-    public static void Run_C2() throws InterruptedException {
-        RunTest(1, new c.BoundedQueueSpinningMixed<>(1));
-        RunTest(2, new c.BoundedQueueSpinningMixed<>(2));
-        RunTest(5, new c.BoundedQueueSpinningMixed<>(5));
-        RunTest(101, new c.BoundedQueueSpinningMixed<>(101));
-    }
-
-    private static void RunTest(int capacity, IBQueue<Integer> queue) throws InterruptedException {
-        System.out.printf("\n-----------------Started [%d capacity]-----------------\n", capacity);
-
-        Vector<Thread> ths = new Vector<>();
-        Vector<Thread> starterThs = new Vector<>(); //threads that start other threads (use for async delays)
-
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();
-        ths.add(new Thread(() -> queue.enq(0))); ths.lastElement().start();
-        ths.add(new Thread(() -> queue.enq(1))); ths.lastElement().start();
-        ths.add(new Thread(() -> queue.enq(2))); ths.lastElement().start();
-
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();
-        Thread.sleep(500);
-        ths.add(new Thread(() -> queue.enq(3))); ths.lastElement().start();
-
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();            Thread.sleep(3000);
-        ths.add(new Thread(() -> queue.enq(4))); ths.lastElement().start();
-        ths.add(new Thread(() -> queue.enq(5))); ths.lastElement().start();
-
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();             Thread.sleep(250);
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();             Thread.sleep(150);
-        ths.add(new Thread(() -> queue.enq(6))); ths.lastElement().start();
-        ths.add(new Thread(() -> queue.enq(7))); ths.lastElement().start();
-
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();             Thread.sleep(300);
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();             Thread.sleep(100);
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();
-        ths.add(new Thread(queue::deq)); ths.lastElement().start();             Thread.sleep(450);
-        for(var i = 0; i < 7; i++) {
-            int finalI = i+8;
-            ths.add(new Thread(() -> queue.enq(finalI))); ths.lastElement().start();
+        if(args.length > 1) {
+            Run_Type(args[1]);
+            return;
         }
 
-        starterThs.add(new Thread(() -> {
-            for(var i = 0; i < 30; i++) {
-                int finalI = i + 30;
-                try { Thread.sleep(130 + i); } catch (InterruptedException e) { e.printStackTrace(); }
-                ths.add(new Thread(() -> queue.enq(finalI))); ths.lastElement().start();
+//        Run_Type("a");
+        Run_Type("b");
+//        Run_Type("c1");
+//        Run_Type("c2");
+
+//        Run_Type("d");
+    }
+
+    public static void Run_Type(String exercise) throws InterruptedException {
+        System.out.printf("\n______ test exercise '%s' ____\n", exercise);
+
+        for (Integer capacity : capacities) {
+            for (Integer size : numOfThreads) {
+                IBQueue<Integer> queue = getQueueByExercise(exercise, capacity);
+                RunTest(queue, capacity, size);
             }
-        })); starterThs.lastElement().start();
-
-        for(var i = 0; i < 30; i++) {
-            ths.add(new Thread(queue::deq)); ths.lastElement().start();
         }
+    }
 
-        for(var i = 0; i < 130; i++) {
-            int finalI = i + 1000;
-            ths.add(new Thread(() -> queue.enq(finalI))); ths.lastElement().start();
-        }
+    private static void RunTest(IBQueue<Integer> queue, Integer capacity, Integer numOfThreads) throws InterruptedException {
+        System.out.printf("\n-----------------Started test non-det [%d capacity, %d num of threads]-----------------\n", capacity, numOfThreads);
 
-        starterThs.add(new Thread(() -> {
-            for(var i = 0; i < 130; i++) {
-                try { Thread.sleep(110 + i); } catch (InterruptedException e) { e.printStackTrace(); }
-                ths.add(new Thread(queue::deq)); ths.lastElement().start();
-            }
-        })); starterThs.lastElement().start();
+        int numOfEnqs = 0;
 
-        //deadlock detection
-        ThreadMXBean bean = ManagementFactory.getThreadMXBean();
-        long[] threadIds = bean.findDeadlockedThreads(); // Returns null if no threads are deadlocked.
-        if (threadIds != null) {
-            ThreadInfo[] infos = bean.getThreadInfo(threadIds);
-            for (ThreadInfo info : infos) {
-                StackTraceElement[] stack = info.getStackTrace();
-                System.out.println(Arrays.toString(stack));
+        Random r = new Random();
+        int low = 0;
+        int high = 100;
+
+        for(var i = 0; i < numOfThreads; i++) {
+            int result = r.nextInt(high-low) + low;
+
+            if(result <= 50) {
+                int finalI = i;
+                (new Thread(() -> queue.enq(finalI))).start();
+                numOfEnqs++;
+            } else {
+                (new Thread(queue::deq)).start();
             }
         }
 
-        //wait for all threads to stop
-        for (var i = 0; i < ths.size(); i++) {
-            if(ths.get(i).isAlive()) {
-                ths.get(i).join();
+        //equal out the enq and deq to make all threads finish
+        var remainingDeq = numOfThreads - numOfEnqs * 2;
+        var copyNumOfEnqs = numOfEnqs;
+        if(remainingDeq > 0) {
+            for(var i = 0; i < remainingDeq; i++) {
+                int finalI = i;
+                (new Thread(() -> queue.enq(finalI + numOfThreads))).start();
+                copyNumOfEnqs++;
+            }
+        } else if (remainingDeq < 0) {
+            for(var i = 0; i < Math.abs(remainingDeq); i++) {
+                (new Thread(queue::deq)).start();
             }
         }
 
-        for (var i = 0; i < starterThs.size(); i++) {
-            if(starterThs.get(i).isAlive()) {
-                starterThs.get(i).join();
-            }
-        }
-
-        //keep 'Finished ...' at last (some printed output from dead threads may appear later)
         Thread.sleep(2000);
+        System.out.printf("\n-----------------Finished test non-det [%d capacity, %d num of threads | (enqs=%d, deqs=%d)]-----------------\n", capacity, numOfThreads, copyNumOfEnqs, numOfThreads - numOfEnqs);
+    }
 
-        System.out.printf("\n-----------------Finished [%d capacity] (%d threads) -----------------\n", capacity, ths.size());
+    public static IBQueue<Integer> getQueueByExercise(String exercise, Integer capacity) {
+        return switch (exercise) {
+            case "a" -> new a.BoundedQueue<>(capacity);
+            case "b" -> new b.BoundedQueue<>(capacity);
+            case "c1" -> new c.BoundedQueueSpinning<>(capacity);
+            case "c2" -> new c.BoundedQueueSpinningMixed<>(capacity);
+            case "d" -> new d.UnboundedQueue<>();
+            default -> null;
+        };
     }
 }
