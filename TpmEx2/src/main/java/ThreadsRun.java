@@ -1,7 +1,12 @@
 import interfaces.IBQueue;
 
 import java.util.Random;
+import java.util.Vector;
 
+/**
+ * run wanted exercise algoritm implementation. 
+ The purpose is to observe if the execution fails or just to follow the console messages
+ */
 public class ThreadsRun {
     static final Integer[] capacities = new Integer[] {1, 2, 5, 20};
     static final Integer[] numOfThreads = new Integer[] {30, 100, 1000, 10_000};
@@ -13,11 +18,10 @@ public class ThreadsRun {
         }
 
 //        Run_Type("a");
-        Run_Type("b");
+//        Run_Type("b");
 //        Run_Type("c1");
 //        Run_Type("c2");
-
-//        Run_Type("d");
+        Run_Type("d");
     }
 
     public static void Run_Type(String exercise) throws InterruptedException {
@@ -34,6 +38,7 @@ public class ThreadsRun {
     private static void RunTest(IBQueue<Integer> queue, Integer capacity, Integer numOfThreads) throws InterruptedException {
         System.out.printf("\n-----------------Started test non-det [%d capacity, %d num of threads]-----------------\n", capacity, numOfThreads);
 
+        var ths = new Vector<Thread>();
         int numOfEnqs = 0;
 
         Random r = new Random();
@@ -58,16 +63,20 @@ public class ThreadsRun {
         if(remainingDeq > 0) {
             for(var i = 0; i < remainingDeq; i++) {
                 int finalI = i;
-                (new Thread(() -> queue.enq(finalI + numOfThreads))).start();
+                ths.add(new Thread(() -> queue.enq(finalI + numOfThreads))); ths.lastElement().start();
                 copyNumOfEnqs++;
             }
         } else if (remainingDeq < 0) {
             for(var i = 0; i < Math.abs(remainingDeq); i++) {
-                (new Thread(queue::deq)).start();
+                ths.add(new Thread(queue::deq)); ths.lastElement().start();
             }
         }
 
-        Thread.sleep(2000);
+        for(var th : ths) {
+            th.join();
+        }
+
+        Thread.sleep(500);
         System.out.printf("\n-----------------Finished test non-det [%d capacity, %d num of threads | (enqs=%d, deqs=%d)]-----------------\n", capacity, numOfThreads, copyNumOfEnqs, numOfThreads - numOfEnqs);
     }
 

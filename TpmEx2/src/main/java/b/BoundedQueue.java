@@ -27,7 +27,8 @@ public class BoundedQueue<T>  implements IBQueue<T> {
 
         System.out.printf("ENQ: '%s' wants lock \n", Thread.currentThread().getName());
         head.nodelock.lock();
-        outputE = String.format("ENQ: '%s' gets lock \n", Thread.currentThread().getName());System.out.print(outputE);
+        int copyNodeId = head.id;
+        outputE = String.format("ENQ: '%s' gets lock node-id-%d \n", Thread.currentThread().getName(), copyNodeId);System.out.print(outputE);
 
         try {
             while (size.get() == capacity) {
@@ -37,7 +38,7 @@ public class BoundedQueue<T>  implements IBQueue<T> {
             Node e = new Node(x);
             tail.next = e;
             tail = tail.next;
-            System.out.printf("ENQ: '%s' added a new node %d \n", Thread.currentThread().getName(), (int) x);
+            System.out.printf("ENQ: '%s' added a new node %d, id-%d \n", Thread.currentThread().getName(), (int) x, e.id);
 
             if (size.getAndIncrement() == 0) {
                 mustWakeDequeuers = true;
@@ -46,19 +47,29 @@ public class BoundedQueue<T>  implements IBQueue<T> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            System.out.printf("ENQ: '%s' releases lock \n", Thread.currentThread().getName());
+            if(copyNodeId != head.id) {
+                System.out.printf("ENQ: '%s' may be about to release lock id-%d, but has lock for node-id-%d \n", Thread.currentThread().getName(), head.id, copyNodeId);
+            } else {
+                System.out.printf("ENQ: '%s' releases lock \n", Thread.currentThread().getName());
+            }
             head.nodelock.unlock();
         }
 
         if (mustWakeDequeuers) {
             System.out.printf("ENQ: '%s' wants DEQ-lock \n", Thread.currentThread().getName());
             tail.nodelock.lock();
-            outputD = String.format("ENQ: '%s' gets DEQ-lock \n", Thread.currentThread().getName()); System.out.println(outputD);
+            copyNodeId = tail.id;
+            outputD = String.format("ENQ: '%s' gets DEQ-lock node-id-%d\n", Thread.currentThread().getName(), copyNodeId); System.out.println(outputD);
 
             try {
                 tail.nodeCondition.signalAll();
             } finally {
-                System.out.printf("ENQ: '%s' releases DEQ-lock \n", Thread.currentThread().getName());
+                if(copyNodeId != tail.id) {
+                    System.out.printf("ENQ: '%s' may be about to release DEQ-lock id-%d, but has lock for node-id-%d \n", Thread.currentThread().getName(), tail.id, copyNodeId);
+                } else {
+                    System.out.printf("ENQ: '%s' releases DEQ-lock \n", Thread.currentThread().getName());
+                }
+
                 tail.nodelock.unlock();
             }
         }
@@ -70,17 +81,18 @@ public class BoundedQueue<T>  implements IBQueue<T> {
 
         System.out.printf("DEQ: '%s' wants lock \n", Thread.currentThread().getName());
         tail.nodelock.lock();
-        outputD = String.format("DEQ: '%s' gets lock \n", Thread.currentThread().getName()); System.out.println(outputD);
+        int copyNodeId = tail.id;
+        outputD = String.format("DEQ: '%s' gets lock node-id-%d\n", Thread.currentThread().getName(), copyNodeId); System.out.println(outputD);
 
         try {
             while (head.next == null) {
                 System.out.printf("DEQ: '%s' awaits notEmptyCondition \n", Thread.currentThread().getName());
                 tail.nodeCondition.await();
             }
-            v = head.next.value;
+            v = head.next.value;    int nId = head.next.id;
             head = head.next;
 
-            System.out.printf("DEQ: '%s' removes node %d \n", Thread.currentThread().getName(), (int) v);
+            System.out.printf("DEQ: '%s' removes node %d, id-%d \n", Thread.currentThread().getName(), (int) v, nId);
 
             if (size.getAndDecrement() == capacity) {
                 mustWakeEnqueuers = true;
@@ -89,19 +101,28 @@ public class BoundedQueue<T>  implements IBQueue<T> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            System.out.printf("DEQ: '%s' releases lock \n", Thread.currentThread().getName());
+            if(copyNodeId != tail.id) {
+                System.out.printf("DEQ: '%s' may be about to release lock id-%d, but has lock for node-id-%d \n", Thread.currentThread().getName(), tail.id, copyNodeId);
+            } else {
+                System.out.printf("DEQ: '%s' releases lock \n", Thread.currentThread().getName());
+            }
             tail.nodelock.unlock();
         }
 
         if (mustWakeEnqueuers) {
             System.out.printf("DEQ: '%s' wants ENQ-lock \n", Thread.currentThread().getName());
             head.nodelock.lock();
-            outputE = String.format("DEQ: '%s' gets ENQ-lock \n", Thread.currentThread().getName()); System.out.println(outputE);
+            copyNodeId = head.id;
+            outputE = String.format("DEQ: '%s' gets ENQ-lock node-id-%d\n", Thread.currentThread().getName(), copyNodeId); System.out.println(outputE);
 
             try {
                 head.nodeCondition.signalAll();
             } finally {
-                System.out.printf("DEQ: '%s' releases ENQ-lock \n", Thread.currentThread().getName());
+                if(copyNodeId != head.id) {
+                    System.out.printf("DEQ: '%s' may be about to release ENQ-lock id-%d, but has lock for node-id-%d \n", Thread.currentThread().getName(), head.id, copyNodeId);
+                } else {
+                    System.out.printf("DEQ: '%s' releases ENQ-lock \n", Thread.currentThread().getName());
+                }
                 head.nodelock.unlock();
             }
         }
@@ -111,6 +132,8 @@ public class BoundedQueue<T>  implements IBQueue<T> {
     }
 
     protected class Node {
+        private static final AtomicInteger counter = new AtomicInteger();
+        final int id;
 
         public T value;
         public Node next;
@@ -122,6 +145,8 @@ public class BoundedQueue<T>  implements IBQueue<T> {
             next = null;
             nodelock = new ReentrantLock();
             nodeCondition = nodelock.newCondition();
+
+            id = counter.getAndIncrement();
         }
     }
 }
