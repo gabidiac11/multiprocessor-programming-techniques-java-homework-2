@@ -184,3 +184,10 @@ at java.base/java.lang.Thread.run(Thread.java:833)
 
 ---
 
+### Exercitiu 2c
+a) Algoritmul pentru coada va functiona corect chiar daca folosim spinning in loc de wait, acestea avand acelasi efect,
+dupa actualizarea valorii, thread-ul revenind, dar fara sa trebuiasca sa mai fie notificat in cazul spinningului.  
+O alta diferenta ar fi ca prin folosirea spinningului in locul wait-ului, thread-ul aflat in asteptare nu va mai face release
+la lock, el fiind cel care va continua atunci cand operatia asteptata va fi posibila.
+
+b)
