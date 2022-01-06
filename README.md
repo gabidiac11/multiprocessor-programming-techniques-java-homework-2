@@ -225,13 +225,10 @@ Exceptia este diferita fata de cea la care ne-am fi asteptat din cod
 Exceptia este aruncata la un alt moment fata de cel la care ne-am astepta  
 Exceptia este aruncata de la o alta linie de cod de cat ne-am fi asteptat
 
-Ouputul rularii:
 <details>
     <summary>
-    Output-ul problemei de deblocare a altui lacat
+    Ouput:
     </summary>
-    ______ test exercise 'd' ____
-
 -----------------Started test non-det [1 capacity, 30 num of threads]-----------------
 ENQ: 'Thread-0' wants lock 
 ENQ: 'Thread-0' gets lock 
@@ -388,8 +385,8 @@ DEQ: 'Thread-33' releases lock
 java.lang.NullPointerException: Cannot read field "value" because "this.head.next" is null
 	at d.UnboundedQueue.deq(UnboundedQueue.java:52)
 	at java.base/java.lang.Thread.run(Thread.java:833)
-    
-    </details>
+
+</details>
 
 
 ### Exercitiu 3
