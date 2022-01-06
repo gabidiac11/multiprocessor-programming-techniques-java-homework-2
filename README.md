@@ -206,11 +206,19 @@ Deq-ar 2 intra in zona critica si nu mai tine cont de faptul ca lista e goala, r
 `result = head.next.value`  
 
 In concluzie, desi tot o exceptie ar fi aruncata, functionarea algoritmului ar fi incorecta intrucat:  
-Exceptia este diferita fata de cea la care ne-am fi asteptat din cod
+Exceptia este diferita fata de cea la care ne-am fi asteptat din cod  
 Exceptia este aruncata la un alt moment fata de cel la care ne-am astepta  
 Exceptia este aruncata de la o alta linie de cod de cat ne-am fi asteptat
 
 ### Exercitiu 3
+
+Pentru a optimiza algoritmul, introducem conceptul de versionare printr-o variabila atomica `version`, pe care o incrementam in operatiile
+care modifica lista.  
+Astfel, putem modifica validarea `if (validate(pred, current))`, sa verifice intai daca s-a modificat variabila `version`, obtinand urmatoarea validare:
+`if (previousVersion == version.get() || validate(pred, current))`, unde variabila `previousVersion` reprezinta valoarea variabilei `version` dinaintea
+obtinerii lock-urilor pe noduri.  
+Putem observa imbunatatirea de performanta dintre cele doua versiuni in tabelul de mai jos.
+
 
 Dupa rularea unui benchmark a cate 50 de iteratii pentru fiecare algoritm:
 
