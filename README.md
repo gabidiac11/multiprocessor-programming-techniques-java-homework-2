@@ -40,9 +40,7 @@ Pentru fiecare subpunct al exercitiului 2, am creat cate un algoritm care sa rep
 
 Pentru a rula algorimii dispunem de o [clasa](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/ThreadsRun.java#L6) care instantiaza, dupa caz, implementarea cozii corespunzatoare a unui subpunct. Am rulat cu ~30, ~100, ~1000 si ~10_000 de operatii pentru cozi cu capacitate de 1, 2, 5 si 20. Ordinea operatiilor este nedeterminista (50-50), folosind Random. In acelasi timp, am dorit ca numarul operatiilor de deq sa fie egal cu cel de enq, asa ca, dupa alegerea nedeterminista, am "umplut" dupa caz cu cat mai este nevoie pentru ca la sfarsit numarul de operatii enq si deq sa fie egal, iar executia sa se incheie de la sine, in caz de succes. Tuturor implementarilor le-au fost adaugate 2 proprietati `ouputE`, `ouputD`, (ca exemplu [aici](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/a/BoundedQueue.java#L34)), in incercarea de a surprinde mai bine cand un thread a obtinut lock-ul.
 
-### Exercitiu 2a
-
-[Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/a/BoundedQueue.java#L9)
+### [Exercitiu 2a](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/a/BoundedQueue.java#L9)
 
 Nu este necesar ca in cadrul metodei **enq**, linia `size.getAndIncrement()` sa fie plasata in cadrul sectiunii protejate de **enqLock**.  
 Algoritmul va functiona corect in continuare chiar daca plasam linia `size.getAndIncrement()` dupa sectiunea critica, datorita caracterului atomic
@@ -50,9 +48,7 @@ al `getAndIncrement()`, care impiedica conflicte cu alti enq-ari.
 Astfel, putem considera operatiile atomice, precum `getAndIncrement()` ca fiind protejate, ele neputand fi observate intr-un stadiu de "in progress" 
 de catre vreun thread, orice enq-ar, indiferent de momentul de executie in care se afla, detectand valoare actualizata a size-ului si incrementand-o corect.
 
-### Exercitiu 2b
-
-[Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/b/BoundedQueue.java#L8)
+### [Exercitiu 2b](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/b/BoundedQueue.java#L8)
 
 Metoda enq nu va mai functiona corect, nemaipastrandu-se caracterul FIFO al cozii intrucat in timp ce un enq-ar s-ar afla in sectiunea critica,
 dupa obtinerea lock-ului din **head**, un thread deq-ar ar putea modifica **head** sa pointeze catre alt nod, urmand ca thread-ul enq-ar sa incerce
@@ -197,19 +193,18 @@ at java.base/java.lang.Thread.run(Thread.java:833)
 ### Exercitiu 2c
 
 
-a) [Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/c/BoundedQueueSpinning.java#L9) 
+[a)](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/c/BoundedQueueSpinning.java#L9) 
 
 Algoritmul pentru coada va functiona corect chiar daca folosim spinning in loc de wait, acestea avand acelasi efect,
 dupa actualizarea valorii, thread-ul revenind, dar fara sa trebuiasca sa mai fie notificat in cazul spinningului.  
 O alta diferenta ar fi ca prin folosirea spinningului in locul wait-ului, thread-ul aflat in asteptare nu va mai face release
 la lock, el fiind cel care va continua atunci cand operatia asteptata va fi posibila.
 
-b) [Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/c/BoundedQueueSpinningMixed.java#L9)
+[b)](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/c/BoundedQueueSpinningMixed.java#L9)
 
 
-### Exercitiu 2d
+### [Exercitiu 2d](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/d/UnboundedQueue.java#L7)
 
-[Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/d/UnboundedQueue.java#L7)
 
 Verificarea pentru coada nevida din metoda deq() trebuie neaparat sa fie plasata in sectiunea protejata prin lock.  
 Pentru a demonstra aceasta afirmatia, presupunem ca verificarea ar fi plasata in afara sectiunii protejate de lock si luam urmatorul caz:
