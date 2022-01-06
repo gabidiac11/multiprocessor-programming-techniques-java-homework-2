@@ -214,8 +214,9 @@ Exceptia este aruncata de la o alta linie de cod de cat ne-am fi asteptat
 
 Dupa rularea unui benchmark a cate 50 de iteratii pentru fiecare algoritm:
 
-|Algoritm   |   |add   |   |   | remove  |   |   | contains  |   |
+| |   |add   |   |   | remove  |   |   | contains  |   |
 |---|---|---|---|---|---|---|---|---|---|
 |   |min_time(s)   |avg_time(s)   |max_time(s)   |min_time(s)   |avg_time(s)   |max_time(s)   |min_time(s)   |avg_time(s)   |max_time(s)   |
-|Original   |   |   |   |   |   |   |   |   |   |
-|Optimizat   |   |   |   |   |   |   |   |   |   |
+|Algoritm Original|   |   |   |   |   |   |   |   |   |
+|Algoritm Optimizat|   |   |   |   |   |   |   |   |   |
+|Improvement
