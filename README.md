@@ -34,6 +34,12 @@ Cum bucata de cod ce se ocupa cu adaugarea elementelor in lista se afla intr-o s
 in acea bucata de cod. Astfel, identificam linia unde lista se modifica daca operatia are succes (linia 63), respectiv linia unde iesim din bucata critica daca operatia nu are succes (linia 59).  
 Aplicam aceeasi logica si pentru functia de stergere a elementelor din lista si identificam liniile 92 pentru succes si 95 pentru esec.
 
+### Exercitiu 2
+
+Pentru fiecare subpunct al exercitiului 2, am creat cate un algoritm care sa reproduca pseudocodul corespunzator. In afara de niste schimbari pentru ca algorimii sa compileze (semnalate si de alti colegi), in plus fata de functionalitatea originala am adaugat print-uri care sa evidentieze traseul thread-urilor. Pentru anumite subpuncte au fost adaugate si alte lucruri care tin tot de printare (variabile locale, proprietati, folosite strict pentru a printa un eveniment pe ecran) si vor fi mentionate in dreptul subpunctelor corespunzatoare.
+
+Pentru a rula algorimii dispunem de o [clasa](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/ThreadsRun.java#L24) care instantiaza, dupa caz, implementarea cozii corespunzatoare a unui subpunct. Am rulat cu ~30, ~100, ~1000 si ~10_000 de operatii pentru cozi cu capacitate de 1, 2, 5 si 20. Ordinea operatiilor este nedeterminista (50-50), folosind Random. In acelasi timp, am dorit ca numarul operatiilor de deq sa fie egal cu cel de enq, asa ca, dupa alegerea nedeterminista, am "umplut" dupa caz cu cat mai este nevoie pentru ca la sfarsit numarul de operatii enq si deq sa fie egal, iar executia sa se incheie de la sine, in caz de succes.
+
 ### Exercitiu 2a
 
 Nu este necesar ca in cadrul metodei **enq**, linia `size.getAndIncrement()` sa fie plasata in cadrul sectiunii protejate de **enqLock**.  
