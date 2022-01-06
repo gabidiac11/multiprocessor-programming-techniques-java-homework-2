@@ -42,3 +42,145 @@ al `getAndIncrement()`, care impiedica conflicte cu alti enq-ari.
 Astfel, putem considera operatiile atomice, precum `getAndIncrement()` ca fiind protejate, ele neputand fi observate intr-un stadiu de "in progress" 
 de catre vreun thread, orice enq-ar, indiferent de momentul de executie in care se afla, detectand valoare actualizata a size-ului si incrementand-o corect.
 
+### Exercitiu 2b
+
+Metoda enq nu va mai functiona corect, nemaipastrandu-se caracterul FIFO al cozii intrucat in timp ce un enq-ar s-ar afla in sectiunea critica,
+dupa obtinerea lock-ului din **head**, un thread deq-ar ar putea modifica **head** sa pointeze catre alt nod, urmand ca thread-ul enq-ar sa incerce
+sa deblocheze un alt lacat decat cel pe care l-a blocat initial.
+
+Exemplu:  
+Rulam algoritmul cu 30 de threaduri si o coada de capacitate 1, adaugand un id pe fiecare nod, folosind un counter.
+
+Dequeuer-ul 'Thread-7' obtine lock-ul pe nodul tail (id - 1), iar pana sa ajunga la unlock, nodul (id - 2) devine noul tail,
+'Thread-7' incercand deblocarea unui alt lock, aruncand o exceptie (**IllegalMonitorStateException**)
+
+---
+
+<details>
+    <summary>
+    Output-ul problemei de deblocare a altui lacat
+    </summary>
+-----------------Started test non-det [1 capacity, 30 num of threads]-----------------
+
+DEQ: 'Thread-0' wants lock   
+DEQ: 'Thread-1' wants lock   
+DEQ: 'Thread-0' gets lock node-id-0  
+
+DEQ: 'Thread-0' awaits notEmptyCondition   
+DEQ: 'Thread-1' gets lock node-id-0    
+
+DEQ: 'Thread-1' awaits notEmptyCondition  
+ENQ: 'Thread-2' wants lock  
+ENQ: 'Thread-3' wants lock  
+ENQ: 'Thread-4' wants lock  
+ENQ: 'Thread-2' gets lock node-id-0  
+ENQ: 'Thread-5' wants lock  
+ENQ: 'Thread-6' wants lock  
+ENQ: 'Thread-2' added a new node 2, id-1  
+ENQ: 'Thread-8' wants lock  
+DEQ: 'Thread-7' wants lock  
+DEQ: 'Thread-10' wants lock  
+ENQ: 'Thread-12' wants lock  
+ENQ: 'Thread-2' must wake dequeuers  
+ENQ: 'Thread-9' wants lock  
+ENQ: 'Thread-14' wants lock  
+ENQ: 'Thread-2' releases lock  
+DEQ: 'Thread-13' wants lock  
+DEQ: 'Thread-7' gets lock node-id-1  
+
+DEQ: 'Thread-11' wants lock  
+DEQ: 'Thread-19' wants lock  
+DEQ: 'Thread-7' removes node 2, id-1  
+DEQ: 'Thread-18' wants lock  
+ENQ: 'Thread-3' gets lock node-id-0  
+ENQ: 'Thread-17' wants lock  
+ENQ: 'Thread-2' wants DEQ-lock  
+DEQ: 'Thread-16' wants lock  
+ENQ: 'Thread-15' wants lock  
+DEQ: 'Thread-27' wants lock  
+ENQ: 'Thread-2' gets DEQ-lock node-id-2  
+
+DEQ: 'Thread-26' wants lock  
+DEQ: 'Thread-25' wants lock  
+ENQ: 'Thread-24' wants lock  
+ENQ: 'Thread-3' added a new node 3, id-2  
+ENQ: 'Thread-3' must wake dequeuers  
+DEQ: 'Thread-23' wants lock  
+DEQ: 'Thread-22' wants lock  
+DEQ: 'Thread-7' must wake enqueuers  
+DEQ: 'Thread-21' wants lock  
+DEQ: 'Thread-20' wants lock  
+DEQ: 'Thread-7' may be about to release lock id-2, but has lock for node-id-1  
+ENQ: 'Thread-3' may be about to release lock id-1, but has lock for node-id-0  
+ENQ: 'Thread-29' wants lock  
+ENQ: 'Thread-2' releases DEQ-lock  
+ENQ: 'Thread-28' wants lock  
+DEQ: 'Thread-16' gets lock node-id-2  
+
+DEQ: 'Thread-16' removes node 3, id-2  
+DEQ: 'Thread-16' must wake enqueuers  
+DEQ: 'Thread-16' releases lock  
+DEQ: 'Thread-16' wants ENQ-lock  
+DEQ: 'Thread-27' gets lock node-id-2  
+
+DEQ: 'Thread-27' awaits notEmptyCondition  
+DEQ: 'Thread-26' gets lock node-id-2  
+
+DEQ: 'Thread-26' awaits notEmptyCondition  
+DEQ: 'Thread-25' gets lock node-id-2  
+
+DEQ: 'Thread-25' awaits notEmptyCondition  
+DEQ: 'Thread-23' gets lock node-id-2  
+
+DEQ: 'Thread-23' awaits notEmptyCondition  
+DEQ: 'Thread-22' gets lock node-id-2  
+
+DEQ: 'Thread-22' awaits notEmptyCondition  
+DEQ: 'Thread-21' gets lock node-id-2  
+
+ENQ: 'Thread-30' wants lock  
+ENQ: 'Thread-31' wants lock  
+DEQ: 'Thread-21' awaits notEmptyCondition  
+DEQ: 'Thread-20' gets lock node-id-2  
+
+DEQ: 'Thread-20' awaits notEmptyCondition  
+DEQ: 'Thread-16' gets ENQ-lock node-id-2  
+
+DEQ: 'Thread-16' releases ENQ-lock  
+ENQ: 'Thread-30' gets lock node-id-2  
+ENQ: 'Thread-30' added a new node 30, id-3  
+ENQ: 'Thread-30' must wake dequeuers  
+ENQ: 'Thread-30' releases lock  
+ENQ: 'Thread-30' wants DEQ-lock  
+ENQ: 'Thread-31' gets lock node-id-2  
+ENQ: 'Thread-31' awaits notFullCondition  
+ENQ: 'Thread-30' gets DEQ-lock node-id-3  
+
+ENQ: 'Thread-30' releases DEQ-lock  
+DEQ: 'Thread-27' removes node 30, id-3  
+DEQ: 'Thread-27' must wake enqueuers  
+DEQ: 'Thread-27' may be about to release lock id-3, but has lock for node-id-2  
+Exception in thread "Thread-7" Exception in thread "Thread-3" java.lang.IllegalMonitorStateException  
+at java.base/java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:175)  
+at java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1007)  
+at java.base/java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:494)  
+at b.BoundedQueue.enq(BoundedQueue.java:55)  
+at ThreadsRun.lambda$RunTest$0(ThreadsRun.java:50)  
+at java.base/java.lang.Thread.run(Thread.java:833)  
+java.lang.IllegalMonitorStateException  
+at java.base/java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:175)  
+at java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1007)  
+at java.base/java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:494)  
+at b.BoundedQueue.deq(BoundedQueue.java:109)  
+at java.base/java.lang.Thread.run(Thread.java:833)  
+Exception in thread "Thread-27" java.lang.IllegalMonitorStateException  
+at java.base/java.util.concurrent.locks.ReentrantLock$Sync.tryRelease(ReentrantLock.java:175)  
+at java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer.release(AbstractQueuedSynchronizer.java:1007)  
+at java.base/java.util.concurrent.locks.ReentrantLock.unlock(ReentrantLock.java:494)  
+at b.BoundedQueue.deq(BoundedQueue.java:109)  
+at java.base/java.lang.Thread.run(Thread.java:833)  
+
+</details>
+
+---
+
