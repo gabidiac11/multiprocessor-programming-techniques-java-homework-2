@@ -191,3 +191,30 @@ O alta diferenta ar fi ca prin folosirea spinningului in locul wait-ului, thread
 la lock, el fiind cel care va continua atunci cand operatia asteptata va fi posibila.
 
 b)
+
+
+### Exercitiu 2d
+
+Verificarea pentru coada nevida din metoda deq() trebuie neaparat sa fie plasata in sectiunea protejata prin lock.  
+Pentru a demonstra aceasta afirmatia, presupunem ca verificarea ar fi plasata in afara sectiunii protejate de lock si luam urmatorul caz:
+ 
+Avem o coada cu un singur element si 2 deq-ari.  
+Deq-ar 1 se afla in sectiunea critica, la inceput.  
+Deq-ar 2 se afla inainte de lock si trece de conditia care verifica daca lista e goala.  
+Deq-ar 2 asteapta pana ce Deq-ar 1 scoate elementul si elibereaza lock-ul.  
+Deq-ar 2 intra in zona critica si nu mai tine cont de faptul ca lista e goala, rezultand intr-o eroare de executie (**NullPointerException**) la linia:
+`result = head.next.value`  
+
+In concluzie, desi tot o exceptie ar fi aruncata, functionarea algoritmului ar fi incorecta intrucat:  
+Exceptia este diferita fata de cea la care ne-am fi asteptat din cod
+Exceptia este aruncata la un alt moment fata de cel la care ne-am astepta  
+Exceptia este aruncata de la o alta linie de cod de cat ne-am fi asteptat
+
+### Exercitiu 3
+
+Dupa rularea unui benchmark a cate 50 de iteratii pentru fiecare algoritm:
+
+| Algoritm | min_time (s) | avg_time (s) | max_time (s) |
+| :---: | :---: | :---: | :---: |
+| Original | 1 | 2 | 3|
+| Optimizat |4 | 5| 6|
