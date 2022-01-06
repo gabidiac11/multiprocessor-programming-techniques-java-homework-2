@@ -236,11 +236,14 @@ obtinerii lock-urilor pe noduri.
 Putem observa imbunatatirea de performanta dintre cele doua versiuni in tabelul de mai jos.
 
 
-Dupa rularea unui benchmark a cate 50 de iteratii pentru fiecare algoritm:
+Dupa rularea unui benchmark cu ajutorul urmatorului [cod](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/316e1611163110b4634cbc33612fe57673db4062/TpmEx3/src/main/java/TestRun.java) a cate 20 de iteratii pentru fiecare algoritm:
 
 | |   |add   |   |   | remove  |   |   | contains  |   |
 |---|---|---|---|---|---|---|---|---|---|
 |   |min_time(s)   |avg_time(s)   |max_time(s)   |min_time(s)   |avg_time(s)   |max_time(s)   |min_time(s)   |avg_time(s)   |max_time(s)   |
-|Algoritm Original|   |   |   |   |   |   |   |   |   |
-|Algoritm Optimizat|   |   |   |   |   |   |   |   |   |
-|Improvement
+|Algoritm Original|12.68   | 16.27  | 17.06  | 0.12  | 0.59  | 0.79  | 5.09  | 26.68  | 35.92  |
+|Algoritm Optimizat| 5.76  | 8.26  | 8.70  | 0.07  | 0.36  | 0.41  | 2.15  | 16.43  | 18.59  |
+|Improvement|120%| 96%| 96%| 71% | 63%| 92%| 136%| 62% | 93%|
+
+Mean improvement = (96 + 63 + 62) / 3 = 73.66%.  
+Our optimized version of the list performed, on average, 73.66% faster than the original one.
