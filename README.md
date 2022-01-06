@@ -410,5 +410,5 @@ Dupa rularea unui benchmark cu ajutorul urmatorului [cod](https://github.com/gab
 |Algoritm Optimizat| 5.76  | 8.26  | 8.70  | 0.07  | 0.36  | 0.41  | 2.15  | 16.43  | 18.59  |
 |Improvement|120%| 96%| 96%| 71% | 63%| 92%| 136%| 62% | 93%|
 
-Mean improvement = (96 + 63 + 62) / 3 = 73.66%.  
-Our optimized version of the list performed, on average, 73.66% faster than the original one.
+Imbunatatire performanta medie = (96 + 63 + 62) / 3 = 73.66%.  
+Versiunea modificata de lista, e mai eficienta, in medie, cu 73.66% decat implementarea originala.
