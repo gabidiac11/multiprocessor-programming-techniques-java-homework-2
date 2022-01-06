@@ -52,6 +52,8 @@ de catre vreun thread, orice enq-ar, indiferent de momentul de executie in care 
 
 ### Exercitiu 2b
 
+[Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/b/BoundedQueue.java#L8)
+
 Metoda enq nu va mai functiona corect, nemaipastrandu-se caracterul FIFO al cozii intrucat in timp ce un enq-ar s-ar afla in sectiunea critica,
 dupa obtinerea lock-ului din **head**, un thread deq-ar ar putea modifica **head** sa pointeze catre alt nod, urmand ca thread-ul enq-ar sa incerce
 sa deblocheze un alt lacat decat cel pe care l-a blocat initial.
@@ -195,17 +197,14 @@ at java.base/java.lang.Thread.run(Thread.java:833)
 ### Exercitiu 2c
 
 
-a) 
-[Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/c/BoundedQueueSpinning.java#L9) 
+a) [Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/c/BoundedQueueSpinning.java#L9) 
 
 Algoritmul pentru coada va functiona corect chiar daca folosim spinning in loc de wait, acestea avand acelasi efect,
 dupa actualizarea valorii, thread-ul revenind, dar fara sa trebuiasca sa mai fie notificat in cazul spinningului.  
 O alta diferenta ar fi ca prin folosirea spinningului in locul wait-ului, thread-ul aflat in asteptare nu va mai face release
 la lock, el fiind cel care va continua atunci cand operatia asteptata va fi posibila.
 
-b)
-
-[Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/c/BoundedQueueSpinningMixed.java#L9)
+b) [Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/c/BoundedQueueSpinningMixed.java#L9)
 
 
 ### Exercitiu 2d
