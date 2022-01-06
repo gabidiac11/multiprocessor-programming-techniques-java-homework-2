@@ -2,9 +2,7 @@ import list.IOptimisticList;
 import list.OptimisticList;
 import list.OptimisticListOptimized;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Vector;
+import java.util.*;
 
 class TestRun {
     final int numOfElements = 100_000;
@@ -14,6 +12,7 @@ class TestRun {
     final List<Integer> numsToAdd;
     final List<Integer> numsToVerifyContains;
     final List<Integer> numsToRemove;
+    final Map<Integer, Boolean> numsFinalCheck; // map from <n,b> -> "b is true if n is contained in the final list after all remove operations"
 
     static class TimeResults { long add, contains, remove, finalCheck; }
     //un-optimized time results
@@ -29,6 +28,12 @@ class TestRun {
         this.numsToAdd = generateListOfRandomNumbers();
         this.numsToVerifyContains = generateListOfRandomNumbers();
         this.numsToRemove = generateNumsToRemove(numsToAdd);
+        this.numsFinalCheck = new HashMap<>();
+        for(int num : numsToAdd) {
+            if(!this.numsFinalCheck.containsKey(num)) {
+                this.numsFinalCheck.put(num, !numsToRemove.contains(num));
+            }
+        }
 
         final IOptimisticList<Integer> list = new OptimisticList<>();
         final IOptimisticList<Integer> listOp = new OptimisticListOptimized<>();
@@ -146,7 +151,7 @@ class TestRun {
     }
 
     public static void main(String[] args) throws Exception {
-        final int count = 2;
+        final int count = 10;
         var result_ini = new Results(count); // un-optimized list results
         var result_op = new Results(count); // optimized list results
 
@@ -281,7 +286,7 @@ class TestRun {
         long startTime = System.nanoTime();
 
         for(int num : numsToAdd) {
-            if(numsToRemove.contains(num)) {
+            if(!numsFinalCheck.get(num)) {
                 continue;
             }
 
