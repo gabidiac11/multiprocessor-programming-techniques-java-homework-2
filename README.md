@@ -243,149 +243,149 @@ DEQ: 'Thread-1' gets lock
 ENQ: 'Thread-3' gets lock   
 ENQ: 'Thread-3' added a new node 3   
 ENQ: 'Thread-8' wants lock   
-DEQ: 'Thread-6' wants lock   
-ENQ: 'Thread-5' wants lock   
-DEQ: 'Thread-10' wants lock   
-DEQ: 'Thread-9' wants lock   
-ENQ: 'Thread-3' releases lock   
-DEQ: 'Thread-1' removes node 0   
-ENQ: 'Thread-7' wants lock   
-ENQ: 'Thread-16' wants lock 
-DEQ: 'Thread-1' releases lock 
-ENQ: 'Thread-8' gets lock 
-ENQ: 'Thread-8' added a new node 8 
-ENQ: 'Thread-21' wants lock 
-DEQ: 'Thread-15' wants lock 
-ENQ: 'Thread-14' wants lock 
-ENQ: 'Thread-13' wants lock 
-ENQ: 'Thread-12' wants lock 
-ENQ: 'Thread-11' wants lock 
-DEQ: 'Thread-25' wants lock 
-ENQ: 'Thread-24' wants lock 
-ENQ: 'Thread-23' wants lock 
-DEQ: 'Thread-29' wants lock 
-ENQ: 'Thread-22' wants lock 
-ENQ: 'Thread-8' releases lock 
-DEQ: 'Thread-20' wants lock 
-DEQ: 'Thread-4' gets lock 
+DEQ: 'Thread-6' wants lock     
+ENQ: 'Thread-5' wants lock     
+DEQ: 'Thread-10' wants lock     
+DEQ: 'Thread-9' wants lock     
+ENQ: 'Thread-3' releases lock     
+DEQ: 'Thread-1' removes node 0     
+ENQ: 'Thread-7' wants lock     
+ENQ: 'Thread-16' wants lock   
+DEQ: 'Thread-1' releases lock   
+ENQ: 'Thread-8' gets lock   
+ENQ: 'Thread-8' added a new node 8   
+ENQ: 'Thread-21' wants lock   
+DEQ: 'Thread-15' wants lock   
+ENQ: 'Thread-14' wants lock   
+ENQ: 'Thread-13' wants lock   
+ENQ: 'Thread-12' wants lock   
+ENQ: 'Thread-11' wants lock   
+DEQ: 'Thread-25' wants lock   
+ENQ: 'Thread-24' wants lock   
+ENQ: 'Thread-23' wants lock   
+DEQ: 'Thread-29' wants lock   
+ENQ: 'Thread-22' wants lock   
+ENQ: 'Thread-8' releases lock   
+DEQ: 'Thread-20' wants lock     
+DEQ: 'Thread-4' gets lock   
 
-DEQ: 'Thread-4' removes node 3 
-DEQ: 'Thread-4' releases lock 
-DEQ: 'Thread-19' wants lock 
-ENQ: 'Thread-18' wants lock 
-ENQ: 'Thread-17' wants lock 
-DEQ: 'Thread-31' wants lock 
-DEQ: 'Thread-32' wants lock 
-DEQ: 'Thread-30' wants lock 
-DEQ: 'Thread-2' gets lock 
+DEQ: 'Thread-4' removes node 3   
+DEQ: 'Thread-4' releases lock   
+DEQ: 'Thread-19' wants lock   
+ENQ: 'Thread-18' wants lock   
+ENQ: 'Thread-17' wants lock   
+DEQ: 'Thread-31' wants lock   
+DEQ: 'Thread-32' wants lock   
+DEQ: 'Thread-30' wants lock   
+DEQ: 'Thread-2' gets lock   
+  
+DEQ: 'Thread-2' removes node 8   
+DEQ: 'Thread-2' releases lock   
+ENQ: 'Thread-5' gets lock   
+ENQ: 'Thread-28' wants lock   
+DEQ: 'Thread-27' wants lock   
+DEQ: 'Thread-26' wants lock   
+DEQ: 'Thread-6' gets lock   
+  
+DEQ: 'Thread-6' removes node 5   
+DEQ: 'Thread-6' releases lock   
+ENQ: 'Thread-5' added a new node 5   
+ENQ: 'Thread-5' releases lock   
+DEQ: 'Thread-33' wants lock   
+ENQ: 'Thread-7' gets lock   
+DEQ: 'Thread-10' gets lock   
 
-DEQ: 'Thread-2' removes node 8 
-DEQ: 'Thread-2' releases lock 
-ENQ: 'Thread-5' gets lock 
-ENQ: 'Thread-28' wants lock 
-DEQ: 'Thread-27' wants lock 
-DEQ: 'Thread-26' wants lock 
-DEQ: 'Thread-6' gets lock 
+DEQ: 'Thread-10' removes node 7   
+DEQ: 'Thread-10' releases lock   
+ENQ: 'Thread-7' added a new node 7   
+ENQ: 'Thread-7' releases lock   
+DEQ: 'Thread-9' gets lock   
 
-DEQ: 'Thread-6' removes node 5 
-DEQ: 'Thread-6' releases lock 
-ENQ: 'Thread-5' added a new node 5 
-ENQ: 'Thread-5' releases lock 
-DEQ: 'Thread-33' wants lock 
-ENQ: 'Thread-7' gets lock 
-DEQ: 'Thread-10' gets lock 
+ENQ: 'Thread-16' gets lock   
+ENQ: 'Thread-16' added a new node 16   
+ENQ: 'Thread-16' releases lock   
+ENQ: 'Thread-21' gets lock   
+ENQ: 'Thread-21' added a new node 21   
+ENQ: 'Thread-21' releases lock   
+ENQ: 'Thread-14' gets lock   
+ENQ: 'Thread-14' added a new node 14   
+ENQ: 'Thread-14' releases lock   
+ENQ: 'Thread-13' gets lock   
+ENQ: 'Thread-13' added a new node 13   
+ENQ: 'Thread-13' releases lock   
+ENQ: 'Thread-12' gets lock   
+ENQ: 'Thread-12' added a new node 12   
+ENQ: 'Thread-12' releases lock   
+DEQ: 'Thread-9' releases lock   
+ENQ: 'Thread-11' gets lock   
+DEQ: 'Thread-15' gets lock   
 
-DEQ: 'Thread-10' removes node 7 
-DEQ: 'Thread-10' releases lock 
-ENQ: 'Thread-7' added a new node 7 
-ENQ: 'Thread-7' releases lock 
-DEQ: 'Thread-9' gets lock 
+DEQ: 'Thread-15' removes node 16   
+DEQ: 'Thread-15' releases lock   
+ENQ: 'Thread-11' added a new node 11   
+ENQ: 'Thread-11' releases lock   
+DEQ: 'Thread-25' gets lock   
 
-ENQ: 'Thread-16' gets lock 
-ENQ: 'Thread-16' added a new node 16 
-ENQ: 'Thread-16' releases lock 
-ENQ: 'Thread-21' gets lock 
-ENQ: 'Thread-21' added a new node 21 
-ENQ: 'Thread-21' releases lock 
-ENQ: 'Thread-14' gets lock 
-ENQ: 'Thread-14' added a new node 14 
-ENQ: 'Thread-14' releases lock 
-ENQ: 'Thread-13' gets lock 
-ENQ: 'Thread-13' added a new node 13 
-ENQ: 'Thread-13' releases lock 
-ENQ: 'Thread-12' gets lock 
-ENQ: 'Thread-12' added a new node 12 
-ENQ: 'Thread-12' releases lock 
-DEQ: 'Thread-9' releases lock 
-ENQ: 'Thread-11' gets lock 
-DEQ: 'Thread-15' gets lock 
+DEQ: 'Thread-25' removes node 21   
+DEQ: 'Thread-25' releases lock   
+ENQ: 'Thread-24' gets lock   
+ENQ: 'Thread-24' added a new node 24   
+ENQ: 'Thread-24' releases lock   
+DEQ: 'Thread-29' gets lock   
+ 
+DEQ: 'Thread-29' removes node 14   
+DEQ: 'Thread-29' releases lock   
+ENQ: 'Thread-23' gets lock   
+ENQ: 'Thread-23' added a new node 23   
+ENQ: 'Thread-23' releases lock   
+DEQ: 'Thread-20' gets lock   
 
-DEQ: 'Thread-15' removes node 16 
-DEQ: 'Thread-15' releases lock 
-ENQ: 'Thread-11' added a new node 11 
-ENQ: 'Thread-11' releases lock 
-DEQ: 'Thread-25' gets lock 
+DEQ: 'Thread-20' removes node 13   
+DEQ: 'Thread-20' releases lock   
+ENQ: 'Thread-22' gets lock   
+ENQ: 'Thread-22' added a new node 22   
+ENQ: 'Thread-22' releases lock   
+DEQ: 'Thread-19' gets lock   
 
-DEQ: 'Thread-25' removes node 21 
-DEQ: 'Thread-25' releases lock 
-ENQ: 'Thread-24' gets lock 
-ENQ: 'Thread-24' added a new node 24 
-ENQ: 'Thread-24' releases lock 
-DEQ: 'Thread-29' gets lock 
+DEQ: 'Thread-19' removes node 12   
+DEQ: 'Thread-19' releases lock   
+ENQ: 'Thread-18' gets lock   
+ENQ: 'Thread-18' added a new node 18   
+ENQ: 'Thread-18' releases lock   
+DEQ: 'Thread-31' gets lock   
 
-DEQ: 'Thread-29' removes node 14 
-DEQ: 'Thread-29' releases lock 
-ENQ: 'Thread-23' gets lock 
-ENQ: 'Thread-23' added a new node 23 
-ENQ: 'Thread-23' releases lock 
-DEQ: 'Thread-20' gets lock 
+DEQ: 'Thread-31' removes node 11   
+DEQ: 'Thread-31' releases lock   
+ENQ: 'Thread-17' gets lock   
+ENQ: 'Thread-17' added a new node 17   
+ENQ: 'Thread-17' releases lock   
+DEQ: 'Thread-32' gets lock   
 
-DEQ: 'Thread-20' removes node 13 
-DEQ: 'Thread-20' releases lock 
-ENQ: 'Thread-22' gets lock 
-ENQ: 'Thread-22' added a new node 22 
-ENQ: 'Thread-22' releases lock 
-DEQ: 'Thread-19' gets lock 
+DEQ: 'Thread-32' removes node 24   
+DEQ: 'Thread-32' releases lock   
+ENQ: 'Thread-28' gets lock   
+ENQ: 'Thread-28' added a new node 28   
+ENQ: 'Thread-28' releases lock   
+DEQ: 'Thread-30' gets lock   
 
-DEQ: 'Thread-19' removes node 12 
-DEQ: 'Thread-19' releases lock 
-ENQ: 'Thread-18' gets lock 
-ENQ: 'Thread-18' added a new node 18 
-ENQ: 'Thread-18' releases lock 
-DEQ: 'Thread-31' gets lock 
+DEQ: 'Thread-30' removes node 23   
+DEQ: 'Thread-30' releases lock   
+DEQ: 'Thread-27' gets lock   
 
-DEQ: 'Thread-31' removes node 11 
-DEQ: 'Thread-31' releases lock 
-ENQ: 'Thread-17' gets lock 
-ENQ: 'Thread-17' added a new node 17 
-ENQ: 'Thread-17' releases lock 
-DEQ: 'Thread-32' gets lock 
+DEQ: 'Thread-27' removes node 22   
+DEQ: 'Thread-27' releases lock   
+DEQ: 'Thread-26' gets lock   
 
-DEQ: 'Thread-32' removes node 24 
-DEQ: 'Thread-32' releases lock 
-ENQ: 'Thread-28' gets lock 
-ENQ: 'Thread-28' added a new node 28 
-ENQ: 'Thread-28' releases lock 
-DEQ: 'Thread-30' gets lock 
+DEQ: 'Thread-26' removes node 18   
+DEQ: 'Thread-26' releases lock   
+DEQ: 'Thread-33' gets lock   
 
-DEQ: 'Thread-30' removes node 23 
-DEQ: 'Thread-30' releases lock 
-DEQ: 'Thread-27' gets lock 
-
-DEQ: 'Thread-27' removes node 22 
-DEQ: 'Thread-27' releases lock 
-DEQ: 'Thread-26' gets lock 
-
-DEQ: 'Thread-26' removes node 18 
-DEQ: 'Thread-26' releases lock 
-DEQ: 'Thread-33' gets lock 
-
-DEQ: 'Thread-33' removes node 17 
-DEQ: 'Thread-33' releases lock 
-java.lang.NullPointerException: Cannot read field "value" because "this.head.next" is null
-	at d.UnboundedQueue.deq(UnboundedQueue.java:52)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-
+DEQ: 'Thread-33' removes node 17   
+DEQ: 'Thread-33' releases lock   
+java.lang.NullPointerException: Cannot read field "value" because "this.head.next" is null  
+	at d.UnboundedQueue.deq(UnboundedQueue.java:52)  
+	at java.base/java.lang.Thread.run(Thread.java:833)  
+  
 </details>
 
 
