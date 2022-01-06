@@ -230,26 +230,26 @@ Exceptia este aruncata de la o alta linie de cod de cat ne-am fi asteptat
     Ouput:
     </summary>
 -----------------Started test non-det [1 capacity, 30 num of threads]-----------------
-ENQ: 'Thread-0' wants lock 
-ENQ: 'Thread-0' gets lock 
-ENQ: 'Thread-0' added a new node 0 
-ENQ: 'Thread-0' releases lock 
-DEQ: 'Thread-1' wants lock 
-DEQ: 'Thread-2' wants lock 
-DEQ: 'Thread-4' wants lock 
-ENQ: 'Thread-3' wants lock 
-DEQ: 'Thread-1' gets lock 
+ENQ: 'Thread-0' wants lock   
+ENQ: 'Thread-0' gets lock   
+ENQ: 'Thread-0' added a new node 0   
+ENQ: 'Thread-0' releases lock   
+DEQ: 'Thread-1' wants lock   
+DEQ: 'Thread-2' wants lock   
+DEQ: 'Thread-4' wants lock   
+ENQ: 'Thread-3' wants lock   
+DEQ: 'Thread-1' gets lock   
 
-ENQ: 'Thread-3' gets lock 
-ENQ: 'Thread-3' added a new node 3 
-ENQ: 'Thread-8' wants lock 
-DEQ: 'Thread-6' wants lock 
-ENQ: 'Thread-5' wants lock 
-DEQ: 'Thread-10' wants lock 
-DEQ: 'Thread-9' wants lock 
-ENQ: 'Thread-3' releases lock 
-DEQ: 'Thread-1' removes node 0 
-ENQ: 'Thread-7' wants lock 
+ENQ: 'Thread-3' gets lock   
+ENQ: 'Thread-3' added a new node 3   
+ENQ: 'Thread-8' wants lock   
+DEQ: 'Thread-6' wants lock   
+ENQ: 'Thread-5' wants lock   
+DEQ: 'Thread-10' wants lock   
+DEQ: 'Thread-9' wants lock   
+ENQ: 'Thread-3' releases lock   
+DEQ: 'Thread-1' removes node 0   
+ENQ: 'Thread-7' wants lock   
 ENQ: 'Thread-16' wants lock 
 DEQ: 'Thread-1' releases lock 
 ENQ: 'Thread-8' gets lock 
