@@ -34,3 +34,11 @@ Cum bucata de cod ce se ocupa cu adaugarea elementelor in lista se afla intr-o s
 in acea bucata de cod. Astfel, identificam linia unde lista se modifica daca operatia are succes (linia 63), respectiv linia unde iesim din bucata critica daca operatia nu are succes (linia 59).  
 Aplicam aceeasi logica si pentru functia de stergere a elementelor din lista si identificam liniile 92 pentru succes si 95 pentru esec.
 
+### Exercitiu 2a
+
+Nu este necesar ca in cadrul metodei **enq**, linia `size.getAndIncrement()` sa fie plasata in cadrul sectiunii protejate de **enqLock**.  
+Algoritmul va functiona corect in continuare chiar daca plasam linia `size.getAndIncrement()` dupa sectiunea critica, datorita caracterului atomic
+al `getAndIncrement()`, care impiedica conflicte cu alti enq-ari.  
+Astfel, putem considera operatiile atomice, precum `getAndIncrement()` ca fiind protejate, ele neputand fi observate intr-un stadiu de "in progress" 
+de catre vreun thread, orice enq-ar, indiferent de momentul de executie in care se afla, detectand valoare actualizata a size-ului si incrementand-o corect.
+
