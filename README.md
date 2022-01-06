@@ -225,6 +225,7 @@ Exceptia este diferita fata de cea la care ne-am fi asteptat din cod
 Exceptia este aruncata la un alt moment fata de cel la care ne-am astepta  
 Exceptia este aruncata de la o alta linie de cod de cat ne-am fi asteptat
 
+---
 <details>
     <summary>
     Ouput:
@@ -388,6 +389,7 @@ java.lang.NullPointerException: Cannot read field "value" because "this.head.nex
   
 </details>
 
+---
 
 ### Exercitiu 3
 
