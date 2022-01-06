@@ -38,9 +38,11 @@ Aplicam aceeasi logica si pentru functia de stergere a elementelor din lista si 
 
 Pentru fiecare subpunct al exercitiului 2, am creat cate un algoritm care sa reproduca pseudocodul corespunzator. In afara de niste schimbari pentru ca algorimii sa compileze (semnalate si de alti colegi), in plus fata de functionalitatea originala am adaugat print-uri care sa evidentieze traseul thread-urilor. Pentru anumite subpuncte au fost adaugate si alte lucruri care tin tot de printare (variabile locale, proprietati, folosite strict pentru a printa un eveniment pe ecran) si vor fi mentionate in dreptul subpunctelor corespunzatoare.
 
-Pentru a rula algorimii dispunem de o [clasa](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/ThreadsRun.java#L24) care instantiaza, dupa caz, implementarea cozii corespunzatoare a unui subpunct. Am rulat cu ~30, ~100, ~1000 si ~10_000 de operatii pentru cozi cu capacitate de 1, 2, 5 si 20. Ordinea operatiilor este nedeterminista (50-50), folosind Random. In acelasi timp, am dorit ca numarul operatiilor de deq sa fie egal cu cel de enq, asa ca, dupa alegerea nedeterminista, am "umplut" dupa caz cu cat mai este nevoie pentru ca la sfarsit numarul de operatii enq si deq sa fie egal, iar executia sa se incheie de la sine, in caz de succes.
+Pentru a rula algorimii dispunem de o [clasa](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/ThreadsRun.java#L6) care instantiaza, dupa caz, implementarea cozii corespunzatoare a unui subpunct. Am rulat cu ~30, ~100, ~1000 si ~10_000 de operatii pentru cozi cu capacitate de 1, 2, 5 si 20. Ordinea operatiilor este nedeterminista (50-50), folosind Random. In acelasi timp, am dorit ca numarul operatiilor de deq sa fie egal cu cel de enq, asa ca, dupa alegerea nedeterminista, am "umplut" dupa caz cu cat mai este nevoie pentru ca la sfarsit numarul de operatii enq si deq sa fie egal, iar executia sa se incheie de la sine, in caz de succes. Tuturor implementarilor le-au fost adaugate 2 proprietati `ouputE`, `ouputD`, (ca exemplu [aici](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/a/BoundedQueue.java#L34)), in incercarea de a surprinde mai bine cand un thread a obtinut lock-ul.
 
 ### Exercitiu 2a
+
+[Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/a/BoundedQueue.java#L9)
 
 Nu este necesar ca in cadrul metodei **enq**, linia `size.getAndIncrement()` sa fie plasata in cadrul sectiunii protejate de **enqLock**.  
 Algoritmul va functiona corect in continuare chiar daca plasam linia `size.getAndIncrement()` dupa sectiunea critica, datorita caracterului atomic
@@ -191,15 +193,24 @@ at java.base/java.lang.Thread.run(Thread.java:833)
 ---
 
 ### Exercitiu 2c
-a) Algoritmul pentru coada va functiona corect chiar daca folosim spinning in loc de wait, acestea avand acelasi efect,
+
+
+a) 
+[Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/c/BoundedQueueSpinning.java#L9) 
+
+Algoritmul pentru coada va functiona corect chiar daca folosim spinning in loc de wait, acestea avand acelasi efect,
 dupa actualizarea valorii, thread-ul revenind, dar fara sa trebuiasca sa mai fie notificat in cazul spinningului.  
 O alta diferenta ar fi ca prin folosirea spinningului in locul wait-ului, thread-ul aflat in asteptare nu va mai face release
 la lock, el fiind cel care va continua atunci cand operatia asteptata va fi posibila.
 
 b)
 
+[Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/c/BoundedQueueSpinningMixed.java#L9)
+
 
 ### Exercitiu 2d
+
+[Implementare](https://github.com/gabidiac11/multiprocessor-programming-techniques-java-homework-2/blob/6f8e8c106fa0c74832ad76dd96126fd3e1ea35c0/TpmEx2/src/main/java/d/UnboundedQueue.java#L7)
 
 Verificarea pentru coada nevida din metoda deq() trebuie neaparat sa fie plasata in sectiunea protejata prin lock.  
 Pentru a demonstra aceasta afirmatia, presupunem ca verificarea ar fi plasata in afara sectiunii protejate de lock si luam urmatorul caz:
